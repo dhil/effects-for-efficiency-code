@@ -1,7 +1,0 @@
-Group is
-      bench.sml
-      catchcont.sml
-      genericSearch.sml
-      xor.sml
-
-      $/basis.cm
