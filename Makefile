@@ -1,6 +1,7 @@
 all: sml
 
-sml: queens.cm integration.cm
+smlnj: platform_smlnj.sml queens.cm integration.cm
+	cp platform_smlnj.sml platform.sml
 	ml-build queens.cm
 	ml-build integration.cm
 

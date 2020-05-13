@@ -18,7 +18,7 @@ use "genericSearch.sml" ;
    repeatedly on the same argument i.
    E.g. (p 0) is evaluated afresh for each comparison with some (p i), i>0.
    All our generic search implementations are robust enough to cope with this. *)
-   
+
 fun testQueenPair p i j =
     let val (jpos,ipos) = (p j,p i) in
         not (ipos = jpos orelse ipos-jpos = i-j orelse ipos-jpos = j-i)
@@ -27,11 +27,11 @@ fun testQueenPair p i j =
 fun testQueenPairsFrom p i j =
     j=i orelse (testQueenPair p i j andalso testQueenPairsFrom p i (j+1)) ;
 
-fun testQueensFrom n p i = 
+fun testQueensFrom n p i =
     i=n orelse (testQueenPairsFrom p i 0 andalso testQueensFrom n p (i+1)) ;
 
-fun nQueens n : SearchProblem = 
-    {dimensions = List.tabulate (n, fn _ => n) , 
+fun nQueens n : SearchProblem =
+    {dimensions = List.tabulate (n, fn _ => n) ,
      property = fn p => testQueensFrom n p 0} ;
 
 (* Second way: nQueens : int -> SearchProblem *)
@@ -50,7 +50,7 @@ fun testFrom n p i zs =
          end ;
 
 fun nQueens' n : SearchProblem =
-    {dimensions = List.tabulate (n, fn _ => n) , 
+    {dimensions = List.tabulate (n, fn _ => n) ,
      property = fn p => testFrom n p 0 []} ;
 
 (* Efficiency comparisons between nQueens and nQueens' are interesting
@@ -96,20 +96,20 @@ fun searchAllExtensions' acc n a i =
 and searchAllExtensionsFrom' acc n a i j =
     if j = n then acc else
     (Array.update(a,i,j) ;
-     let val acc' = 
-         if testQueenPairsFrom a i 0 
+     let val acc' =
+         if testQueenPairsFrom a i 0
          then searchAllExtensions' acc n a (i+1)
          else acc
      in searchAllExtensionsFrom' acc' n a i (j+1)
      end) ;
-        
+
 in
 
 fun findOne n =
     (searchAllExtensions n (Array.array(n,0)) 0 ; NONE)
     handle Found a => SOME (arrayToList a) ;
 
-fun findAll n = List.rev (searchAllExtensions' [] n (Array.array(n,0)) 0) 
+fun findAll n = List.rev (searchAllExtensions' [] n (Array.array(n,0)) 0)
 
 end
 end ;
@@ -117,7 +117,7 @@ end ;
 
 (* For easy testing *)
 
-SMLofNJ.Internals.GC.messages false ;
+GC.messages false ;
 
 fun time f x =
     let val timer = Timer.startRealTimer() in

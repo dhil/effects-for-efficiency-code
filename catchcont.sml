@@ -5,7 +5,7 @@
 (* John Longley, mostly October 2015 *)
 
 
-datatype ('a,'b) Sum = inl of 'a | inr of 'b 
+datatype ('a,'b) Sum = inl of 'a | inr of 'b
 
 signature CATCHCONT = sig
 
@@ -19,26 +19,26 @@ val catchcont0 : ((''r->'s)->''t) ->
 
 end ;
 
-structure Catchcont : CATCHCONT = struct 
+structure Catchcont : CATCHCONT = struct
 
 type ('r,'s,'t0,'t1) Catchcont =
      ( {result :'t0, more :('r->'s)->'t1} ,
        {arg :'r, resume :'s->('r->'s)->('t0*'t1)} ) Sum ;
 
-local open SMLofNJ.Cont in
-fun catchcont (F:(''r->'s)->(''t0*'t1)) = 
-    let val gStore = ref (NONE : (''r -> 's) option) 
+local open Cont in
+fun catchcont (F:(''r->'s)->(''t0*'t1)) =
+    let val gStore = ref (NONE : (''r -> 's) option)
         val returnAddress = ref (NONE : (''t0 * 't1) cont option)
     in
         callcc (fn k =>
 	let val answer as (ground, rest) =
-	    F (fn i:''r => 
-	        case !gStore of 
+	    F (fn i:''r =>
+	        case !gStore of
 		    SOME g => g i
-	          | NONE => callcc (fn l => 
+	          | NONE => callcc (fn l =>
 			throw k (inr {
-                            arg = i, 
-			    resume = fn j => fn g => 
+                            arg = i,
+			    resume = fn j => fn g =>
 				callcc (fn m =>
 				   (gStore := SOME g ;
 				    returnAddress := SOME m ;
@@ -46,7 +46,7 @@ fun catchcont (F:(''r->'s)->(''t0*'t1)) =
                             })))
 	in case !returnAddress of
 	    NONE => inl {
-                result = ground, 
+                result = ground,
                 more = fn g => (gStore := SOME g ; rest)
                 }
 	  | SOME m => throw m answer
