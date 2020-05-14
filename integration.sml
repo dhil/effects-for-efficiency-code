@@ -20,7 +20,7 @@ In fact, for any given k and F, all four of our integrators will return the
 about F - so that efficiency comparisons between them are indeed meaningful. *)
 
 
-use "catchcont.sml" ;
+(* use "catchcont.sml" ; *)
 
 (* Big integers *)
 
@@ -316,7 +316,7 @@ fun time2 f x y =
 
 fun tt x = true;
 
-use "bench.sml";
+(* use "bench.sml"; *)
 
 exception InvalidArgument
 

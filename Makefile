@@ -5,6 +5,10 @@ smlnj: platform_smlnj.sml queens.cm integration.cm
 	ml-build queens.cm
 	ml-build integration.cm
 
+mlton: platform_mlton.sml queens.mlb integration.mlb
+	mlton queens.mlb
+	mlton integration.mlb
+
 clean:
 	rm -f *.o *.cmi *.cmx
 	rm -f *.x86-linux
