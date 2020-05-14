@@ -6,7 +6,7 @@
 (* John Longley, started October 2015, tidied up September 2018. *)
 
 
-use "genericSearch.sml" ;
+(* use "genericSearch.sml" ; *)
 
 (* All our generic search operations take an input of type SearchProblem.
    We here give two ways of presenting n queens as a SearchProblem,
@@ -169,7 +169,7 @@ fun bespokeAllQ n =  BespokeQueens.findAll n ;
 fun funAllQ n = FunSearch.findAll (nQueens n) ;
 fun funAllQ' n = FunSearch.findAll (nQueens' n) ;
 
-use "bench.sml";
+(* use "bench.sml"; *)
 
 fun validateAllQ12 xs = List.length xs = 14200
 fun validateAllQ10 xs = List.length xs = 724

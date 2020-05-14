@@ -15,7 +15,7 @@
 *)
 
 
-use "catchcont.sml" ;
+(* use "catchcont.sml" ; *)
 
 type SearchProblem = {dimensions : int list, property : (int->int)->bool} ;
 
