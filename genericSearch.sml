@@ -15,8 +15,6 @@
 *)
 
 
-(* use "catchcont.sml" ; *)
-
 type SearchProblem = {dimensions : int list, property : (int->int)->bool} ;
 
 signature GENERIC_SEARCH = sig

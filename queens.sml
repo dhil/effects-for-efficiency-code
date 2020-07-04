@@ -5,9 +5,6 @@
 
 (* John Longley, started October 2015, tidied up September 2018. *)
 
-
-(* use "genericSearch.sml" ; *)
-
 (* All our generic search operations take an input of type SearchProblem.
    We here give two ways of presenting n queens as a SearchProblem,
    parametric in n. *)
@@ -169,8 +166,6 @@ fun bespokeAllQ n =  BespokeQueens.findAll n ;
 fun funAllQ n = FunSearch.findAll (nQueens n) ;
 fun funAllQ' n = FunSearch.findAll (nQueens' n) ;
 
-(* use "bench.sml"; *)
-
 fun validateAllQ12 xs = List.length xs = 14200
 fun validateAllQ10 xs = List.length xs = 724
 fun validateAllQ8 xs = List.length xs = 92
@@ -202,34 +197,32 @@ fun tt _ = true
 val numIterations = 11
 val oneQ : int -> (int list option Bench.t list) = fn n => [
                (* { label = "naive", f = if n > 8 then (fn () => NONE) else (fn () => naiveOneQ n), validate = tt }, *)
-               { m = 0, n = n, niter = numIterations, label = "fun", f = if n < 28 then (fn () => funOneQ n) else (fn () => NONE), validate = validateOne n },
-               { m = 0, n = n, niter = numIterations, label = "mod", f = (fn () => modOneQ n), validate = validateOne n },
-               { m = 0, n = n, niter = numIterations, label = "cc", f = (fn () => ccOneQ n), validate = validateOne n },
-               { m = 0, n = n, niter = numIterations, label = "bespoke", f = (fn () => bespokeOneQ n), validate = validateOne n }
+               { m = 0, n = n, niter = numIterations, label = "Berger", f = if n < 28 then (fn () => funOneQ n) else (fn () => NONE), validate = validateOne n },
+               { m = 0, n = n, niter = numIterations, label = "Pruned", f = (fn () => modOneQ n), validate = validateOne n },
+               { m = 0, n = n, niter = numIterations, label = "Effectful", f = (fn () => ccOneQ n), validate = validateOne n },
+               { m = 0, n = n, niter = numIterations, label = "Bespoke", f = (fn () => bespokeOneQ n), validate = validateOne n }
            ]
 
 val oneQ' : int -> (int list option Bench.t list) = fn n => [
-               (* { label = "naive", f = if n > 8 then (fn () => NONE) else (fn () => naiveOneQ' n), validate = tt }, *)
-               { m = 0, n = n, niter = numIterations, label = "funP", f = if n < 28 then (fn () => funOneQ' n) else (fn () => NONE), validate = validateOne n },
-               { m = 0, n = n, niter = numIterations, label = "modP", f = (fn () => modOneQ' n), validate = validateOne n },
-               { m = 0, n = n, niter = numIterations, label = "ccP", f = (fn () => ccOneQ' n), validate = validateOne n }
-               (* { label = "bespoke", f = (fn () => bespokeOneQ n), validate = tt } *)
+               { m = 0, n = n, niter = numIterations, label = "Naive'", f = if n > 8 then (fn () => NONE) else (fn () => naiveOneQ' n), validate = validateOne n },
+               { m = 0, n = n, niter = numIterations, label = "Berger'", f = if n < 28 then (fn () => funOneQ' n) else (fn () => NONE), validate = validateOne n },
+               { m = 0, n = n, niter = numIterations, label = "Pruned'", f = (fn () => modOneQ' n), validate = validateOne n },
+               { m = 0, n = n, niter = numIterations, label = "Effectful'", f = (fn () => ccOneQ' n), validate = validateOne n }
             ];
 
 val allQ : int -> (int list list Bench.t list) = fn n => [
-               { m = 0, n = n, niter = numIterations, label = "naive", f = if n > 8 then (fn () => []) else (fn () => naiveAllQ n), validate = validateAll n },
-               { m = 0, n = n, niter = numIterations, label = "mod", f = (fn () => modAllQ n), validate = validateAll n },
-               { m = 0, n = n, niter = numIterations, label = "cc", f = (fn () => ccAllQ n), validate = validateAll n },
-               { m = 0, n = n, niter = numIterations, label = "bespoke", f = (fn () => bespokeAllQ n), validate = validateAll n },
-               { m = 0, n = n, niter = numIterations, label = "fun", f = (fn () => funAllQ n), validate = fn sol => validateAll n (List.rev sol) }
+               { m = 0, n = n, niter = numIterations, label = "Naive", f = if n > 8 then (fn () => []) else (fn () => naiveAllQ n), validate = validateAll n },
+               { m = 0, n = n, niter = numIterations, label = "Berger", f = (fn () => funAllQ n), validate = fn sol => validateAll n (List.rev sol) },
+               { m = 0, n = n, niter = numIterations, label = "Pruned", f = (fn () => modAllQ n), validate = validateAll n },
+               { m = 0, n = n, niter = numIterations, label = "Effectful", f = (fn () => ccAllQ n), validate = validateAll n },
+               { m = 0, n = n, niter = numIterations, label = "Bespoke", f = (fn () => bespokeAllQ n), validate = validateAll n }
 ];
 
 val allQ' : int -> (int list list Bench.t list) = fn n => [
-               { m = 0, n = n, niter = numIterations, label = "naiveP", f = if n > 8 then (fn () => []) else (fn () => naiveAllQ' n), validate = validateAll n },
-               { m = 0, n = n, niter = numIterations, label = "modP", f = (fn () => modAllQ' n), validate = validateAll n },
-               { m = 0, n = n, niter = numIterations, label = "ccP", f = (fn () => ccAllQ' n), validate = validateAll n },
-               { m = 0, n = n, niter = numIterations, label = "funP", f = (fn () => funAllQ' n), validate = fn sol => validateAll n (List.rev sol) }
-               (* { label = "bespoke", f = (fn () => bespokeAllQ n), validate = tt } *)
+               { m = 0, n = n, niter = numIterations, label = "Naive'", f = if n > 8 then (fn () => []) else (fn () => naiveAllQ' n), validate = validateAll n },
+               { m = 0, n = n, niter = numIterations, label = "Berger'", f = (fn () => funAllQ' n), validate = fn sol => validateAll n (List.rev sol) },
+               { m = 0, n = n, niter = numIterations, label = "Pruned'", f = (fn () => modAllQ' n), validate = validateAll n },
+               { m = 0, n = n, niter = numIterations, label = "Effectful'", f = (fn () => ccAllQ' n), validate = validateAll n }
            ];
 
 fun cartesian ([],        ys) : ('a * 'b) list = []

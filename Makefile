@@ -1,4 +1,4 @@
-all: sml
+all: mlton smlnj
 
 smlnj: platform_smlnj.sml queens.cm integration.cm
 	cp platform_smlnj.sml platform.sml
@@ -11,5 +11,5 @@ mlton: platform_mlton.sml queens.mlb integration.mlb
 
 clean:
 	rm -f *.o *.cmi *.cmx
-	rm -f *.x86-linux
+	rm -f *.x86-linux *.amd64-linux
 	rm -f queens integration

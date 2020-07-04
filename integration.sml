@@ -20,17 +20,11 @@ In fact, for any given k and F, all four of our integrators will return the
 about F - so that efficiency comparisons between them are indeed meaningful. *)
 
 
-(* use "catchcont.sml" ; *)
-
 (* Big integers *)
 
 type big = IntInf.int ;
 val toBig = IntInf.fromInt ;
 val toSmall = IntInf.toInt ;
-
-(* type big = int ; *)
-(* val toBig = fn x => x ; *)
-(* val toSmall = fn x => x ; *)
 
 fun printSmall n = print (Int.toString n ^ " ") ;
 
@@ -316,8 +310,6 @@ fun time2 f x y =
 
 fun tt x = true;
 
-(* use "bench.sml"; *)
-
 exception InvalidArgument
 
 fun validateId20 (x : dyadic) = x = (1, ~1)
@@ -342,10 +334,10 @@ fun funToIntegrate fname = case fname of
 
 val numIterations = 11
 val integrationFuns : (string * int) -> (dyadic Bench.t list)
-    = fn (f, n) => [(* { m = 0, n = n, niter = numIterations, label = "slowFun", f = let val g = funToIntegrate f in (fn () => slowFunIntegrate01 n g) end, validate = validateFun (f, n) }, *)
-                    { m = 0, n = n, niter = numIterations, label = "fun", f = let val g = funToIntegrate f in (fn () => funIntegrate01 n g) end, validate = validateFun (f, n) },
-                    { m = 0, n = n, niter = numIterations, label = "mod", f = let val g = funToIntegrate f in (fn () => modIntegrate01 n g) end, validate = validateFun (f, n) },
-                    { m = 0, n = n, niter = numIterations, label = "cc", f = let val g = funToIntegrate f in (fn () => ccIntegrate01 n g) end, validate = validateFun (f, n) }]
+    = fn (f, n) => [{ m = 0, n = n, niter = numIterations, label = "Naive", f = let val g = funToIntegrate f in (fn () => slowFunIntegrate01 n g) end, validate = validateFun (f, n) },
+                    { m = 0, n = n, niter = numIterations, label = "Berger", f = let val g = funToIntegrate f in (fn () => funIntegrate01 n g) end, validate = validateFun (f, n) },
+                    { m = 0, n = n, niter = numIterations, label = "Pruned", f = let val g = funToIntegrate f in (fn () => modIntegrate01 n g) end, validate = validateFun (f, n) },
+                    { m = 0, n = n, niter = numIterations, label = "Effectful", f = let val g = funToIntegrate f in (fn () => ccIntegrate01 n g) end, validate = validateFun (f, n) }]
 
 fun cartesian ([],        ys) : ('a * 'b) list = []
   | cartesian ((x :: xs), ys) = List.map (fn y => (x, y)) ys @ cartesian (xs, ys)

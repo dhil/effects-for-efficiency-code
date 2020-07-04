@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Run queens with SML/NJ
+if [[ -f queens.amd64-linux ]]; then
+    sml @SMLload queens.amd64-linux
+elif [[ -f queens.x86-linux ]]; then
+    sml @SMLload queens.x86-linux
+else
+    echo "Did you forgot to `make smlnj`?"
+    exit 1
+fi
+
+# Run integration with SML/NJ
+if [[ -f integration.amd64-linux ]]; then
+    sml @SMLload integration.amd64-linux
+elif [[ -f integration.x86-linux ]]; then
+    sml @SMLload integration.x86-linux
+else
+    echo "Did you forgot to `make smlnj`?"
+    exit 1
+fi
+
+# Copy results
+mv queens-find-one-sml.csv queens-find-one-smlnj.csv
+mv queens-find-all-sml.csv queens-find-all-smlnj.csv
+mv integration-id-sml.csv integration-id-smlnj.csv
+mv integration-square-sml.csv integration-square-smlnj.csv
+mv integration-logistic-sml.csv integration-logistic-smlnj.csv
+
+# Run queens and integration with MLton
+./queens.mlton
+./integration.mlton
