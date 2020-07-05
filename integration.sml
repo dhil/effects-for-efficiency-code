@@ -366,9 +366,9 @@ fun validateLogisticFun (m, n) : (dyadic -> bool)
 
 val logistic' : (int * int) -> (dyadic Bench.t list)
     = fn (m, n) => [
-          { m = m, n = n, niter = numIterations, label = "fun", f = (fn () => funIntegrate01 m (iter n logistic)), validate = validateLogisticFun (m, n) },
-          { m = m, n = n, niter = numIterations, label = "mod", f = (fn () => modIntegrate01 m (iter n logistic)), validate = validateLogisticFun (m, n) },
-          { m = m, n = n, niter = numIterations, label = "cc", f = (fn () => ccIntegrate01 m (iter n logistic)), validate = validateLogisticFun (m, n) }
+          { m = m, n = n, niter = numIterations, label = "Berger", f = (fn () => funIntegrate01 m (iter n logistic)), validate = validateLogisticFun (m, n) },
+          { m = m, n = n, niter = numIterations, label = "Pruned", f = (fn () => modIntegrate01 m (iter n logistic)), validate = validateLogisticFun (m, n) },
+          { m = m, n = n, niter = numIterations, label = "Effectful", f = (fn () => ccIntegrate01 m (iter n logistic)), validate = validateLogisticFun (m, n) }
       ]
 
 val logisticSuite = List.concat (List.map (fn (f, arg) => f arg) (cartesian ([logistic'], [(15, 1), (15, 2), (15, 3), (15, 4), (15, 5), (5, 8), (10, 8), (5, 10)])))
