@@ -10,11 +10,10 @@ Paper: [https://arxiv.org/abs/2007.00605](https://arxiv.org/abs/2007.00605)
 
 The provided artifact contains the source files along with the raw and
 processed data for the experiments reported in Section 8 of the
-revised submitted paper. The experiments were conducted on a Intel
-Xeon CPU E5-1620 v2 @ 3.70GHz powered workstation running Ubuntu 16.04
-LTS using [SML/NJ v110.97
-64-bit](https://www.smlnj.org/dist/working/110.97/index.html) and
-[MLton
+paper. The experiments were conducted on a Intel Xeon CPU E5-1620 v2 @
+3.70GHz powered workstation running Ubuntu 16.04 LTS using [SML/NJ
+v110.97 64-bit](https://www.smlnj.org/dist/working/110.97/index.html)
+and [MLton
 20180207](https://github.com/MLton/mlton/releases/tag/on-20180207-release)
 both with factory settings.
 
