@@ -1,6 +1,6 @@
-# Experiments with Generic Search using Delimited Control (ICFP 2020 Artifact)
+# Experiments with Generic Search using First-Class Control (ICFP 2020 Artifact)
 
-Name:    **Effects for Efficiency: Asymptotic Speedup with Delimited Control**
+Name:    **Effects for Efficiency: Asymptotic Speedup with First-Class Control**
 
 Authors: **Daniel Hillerström, Sam Lindley, and John Longley**
 
